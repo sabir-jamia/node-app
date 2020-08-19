@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Node App</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        background-color: #f5f5f5;
+      }
+      form {
+        width: 100%;
+        max-width: 530px;
+        padding: 35px 25px;
+        margin: auto;
+        background-color: white;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+  <body class="text-center">
+    <header>
+      <%- include("../partials/nav.ejs" ) %>
+    </header>
+    <main role="main">
+      <div class="container">
+        <%- include("../partials/opening_form.ejs") %>
+      </div>
+    </main>
+    <%- include("../partials/scripts.ejs") %>
+  </body>
+</html>

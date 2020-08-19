@@ -1,0 +1,113 @@
+<form action="<%= opening._id ? `/openings/${opening._id}/update?_method=PATCH` : '/openings' %>" method="POST">
+  <div class="form-group row">
+    <label for="projectName" class="col-sm-3 col-form-label-sm">
+      Project Name
+    </label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        id="projectName"
+        name="projectName"
+        value="<%= opening.projectName  %>"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="jobDescription" class="col-sm-3 col-form-label-sm">
+      Job Description
+    </label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        id="jobDescription"
+        name="jobDescription"
+        value="<%= opening?.jobDescription  %>"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="clientName" class="col-sm-3 col-form-label-sm">
+      Client Name
+    </label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        class="form-control"
+        id="clientName"
+        name="clientName"
+        value="<%= opening?.clientName  %>"
+      />
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="role" class="col-sm-3 col-form-label-sm">
+      Role
+    </label>
+    <div class="col-sm-9">
+      <select class="custom-select" id="role" name="role">
+        <option <%= opening.role  ? '' : 'selected' %> >Please select the role</option>
+        <option <%= opening.role === 'ProjectManager'   ?  'selected': '' %> value="ProjectManager">Project Manager</option>
+        <option <%= opening.role === 'Frontend'  ? 'selected' : '' %> value="Frontend">Frontend</option>
+        <option <%= opening.role === 'Backend'  ?  'selected' : '' %> value="Backend">Backend</option>
+        <option <%= opening.role === 'Devops'  ?  'selected' : '' %> value="Devops">Devops</option>
+        <option <%= opening.role === 'QA' ? 'selected' : '' %> value="QA">QA</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="technologies" class="col-sm-3 col-form-label-sm">
+      Technologies
+    </label>
+    <div class="col-sm-9">
+      <input
+        type="text"
+        placeholder="Enter comma separated values"
+        class="form-control"
+        id="technologies"
+        name="technologies"
+        value="<%= opening?.technologies %> "
+      />
+    </div>
+  </div>
+  <fieldset class="form-group">
+    <div class="row">
+      <legend class="col-form-label-sm col-sm-3 pt-0">Radios</legend>
+      <div class="col-sm-9 d-flex">
+        <div class="custom-control custom-radio custom-control-inline">
+          <input
+            type="radio"
+            id="status1"
+            name="status"
+            class="custom-control-input"
+            value="1"
+            <%= opening?.status ? 'checked' : '' %> 
+          />
+          <label class="custom-control-label" for="status1">
+            Active
+          </label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input
+            type="radio"
+            id="status2"
+            name="status"
+            class="custom-control-input"
+            value="0"
+            <%= opening?.status ? '' : 'checked'%>
+          />
+          <label class="custom-control-label" for="status2">
+            InActive
+          </label>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <a href="/openings" class="btn btn-secondary">Cancel</a>
+      <button type="submit" class="btn btn-primary"><%= opening._id ? "Edit" : "Create" %> </button>
+    </div>
+  </div>
+</form>

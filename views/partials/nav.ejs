@@ -1,0 +1,64 @@
+<nav class="navbar navbar-dark sticky-top bg-dark navbar-expand-md d-flex">
+  <a href="/openings" class="navbar-brand">
+    Home
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNav"
+    aria-controls="navbarNav"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <span class="flex-grow-1"></span>
+  <div class="collapse navbar-collapse flex-grow-0" id="navbarNav">
+    <ul class="navbar-nav mr-auto">
+      <% if (!user) {%>
+      <li class="nav-item">
+        <a href="/signin" class="nav-link">Signin</a>
+      </li>
+      <li class="nav-item">
+        <a href="/signup" class="nav-link">Signup</a>
+      </li>
+      <%} else { %>
+      <li class="nav-item">
+        <a
+          href="/openings"
+          class="nav-link <%= page === 'opening' ? 'active' : '' %>"
+        >
+          Openings
+        </a>
+      </li>
+      <% if(user.role === 'ProjectManager') { %>
+      <li class="nav-item">
+        <a
+          href="/applications"
+          class="nav-link <%= page === 'applications' ? 'active' : '' %>"
+        >
+          Applications
+        </a>
+      </li>
+      <% } %>
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <%= user.username %>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/signout">Signout</a>
+        </div>
+      </li>
+      <% } %>
+    </ul>
+  </div>
+</nav>

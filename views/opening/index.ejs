@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <title>Node App</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        background-color: #f5f5f5;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <%- include("../partials/nav.ejs") %>
+    </header>
+    <main role="main">
+      <div class="container"> 
+         <div class="row align-items-center">
+            <div class="col-sm-6"><h1 class="h2 pt-3 pb-2">Job Openings</h1></div>
+            <% if(user.role === "ProjectManager") {%>
+              <div class="col-sm-6"><a class="btn btn-primary" href="/openings/create"> Create Opening</a></div>
+            <% } else { %>
+              <div class="col-sm-6">
+                <form action="/resume/upload" method="POST" class="d-inline-block" enctype="multipart/form-data"> 
+                  <div class="input-group">
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" id="resume" name="resume">
+                      <label class="custom-file-label" for="resume" aria-describedby="inputGroupFileAddon02">Choose file</label>
+                    </div>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit" id="inputGroupFileAddon03">Upload</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+            <% } %> 
+        </div>
+        <div class="row">
+          <% openings.forEach(opening => { %>
+            <div class="col-lg-4 col-md-6 pb-3">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"><%= opening.projectName %>  </h5>
+                  <p class="card-text">
+                    <%= opening.jobDescription %>
+                  </p>
+                  <% if(user.role === "ProjectManager") { %> 
+                     <a href="/openings/<%= opening._id %>/edit" class="btn btn-secondary">Edit</a>
+                     <form action="openings/<%= opening._id %>?_method=DELETE" method="POST" class="d-inline-block">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                     </form>
+                  <% } else { %> 
+                    <form action="/openings/<%= opening._id %>/apply?_method=PATCH" method="POST" class="d-inline-block">
+                     <button type="submit" class="btn btn-primary">Apply</button>
+                     <input type="hidden" value="<%= user.id %>" name="appliedBy"/>
+                    </form>
+                  <% } %> 
+                </div>
+              </div>
+            </div>
+            <% }) %>    
+          </div>
+        </div>
+      </div>
+    </main>
+    <%- include("../partials/scripts.ejs") %>
+    <script src="/js/bs-custom-file-input.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        bsCustomFileInput.init();
+      });
+    </script>
+  </body>
+</html>
